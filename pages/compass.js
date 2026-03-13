@@ -116,3 +116,6 @@ export default async function handler(req, res) {
 export async function getServerSideProps() {
   return { props: {} };
 }}
+export async function getServerSideProps() {
+  return { props: {} };
+}
