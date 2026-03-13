@@ -113,4 +113,6 @@ export default async function handler(req, res) {
         process.env.NODE_ENV === "development" ? error.message : undefined,
     });
   }
-}
+export async function getServerSideProps() {
+  return { props: {} };
+}}
