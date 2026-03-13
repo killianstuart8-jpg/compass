@@ -92,7 +92,7 @@ export default function Landing() {
               <a href="#testimonials" className={styles.navLink}>
                 Stories
               </a>
-              <Link href="/app" className={styles.navCta}>
+              <Link href="/chat" className={styles.navCta}>
                 Try Free →
               </Link>
             </div>
@@ -119,7 +119,7 @@ export default function Landing() {
           </p>
 
           <div className={styles.heroCtas}>
-            <Link href="/app" className={styles.ctaPrimary}>
+            <Link href="/chat" className={styles.ctaPrimary}>
               Begin My Journey
               <span className={styles.ctaArrow}>→</span>
             </Link>
@@ -371,7 +371,7 @@ export default function Landing() {
               Ten minutes. One honest conversation.
               <br />A lifetime of clarity.
             </p>
-            <Link href="/app" className={styles.ctaPrimary}>
+            <Link href="/chat" className={styles.ctaPrimary}>
               Begin My Journey
               <span className={styles.ctaArrow}>→</span>
             </Link>
