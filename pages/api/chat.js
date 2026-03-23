@@ -1,7 +1,15 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
+});
+
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(20, "24 h"),
+  analytics: true,
 });
 
 const SYSTEM_PROMPT = `You are "Compass" — a deeply insightful career and life direction counselor with the intuition of a seasoned therapist, the analytical precision of a career strategist, and the warmth of a trusted mentor.
@@ -49,6 +57,20 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
+  // Rate limiting
+  const ip =
+    req.headers["x-real-ip"] ||
+    req.headers["x-forwarded-for"]?.split(",")[0] ||
+    "anonymous";
+
+  const { success } = await ratelimit.limit(ip);
+
+  if (!success) {
+    return res.status(429).json({
+      error: "You've reached the daily limit for Compass sessions. Please come back tomorrow to continue your journey.",
+    });
+  }
+
   const { messages } = req.body;
 
   if (!messages || !Array.isArray(messages)) {
@@ -82,3 +104,12 @@ export default async function handler(req, res) {
     });
   }
 }
+```
+
+---
+
+Once you've replaced it, save the file and then run in your terminal:
+```
+git add .
+git commit -m "Add rate limiting"
+git push
