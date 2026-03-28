@@ -633,7 +633,23 @@ export default function AppPage() {
               <EmailCapture />
             </div>
           )}
-        </main>
+</main>
+
+        <footer style={{
+          textAlign: "center", padding: "24px",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          marginTop: 40
+        }}>
+          <div style={{ display: "flex", gap: 24, justifyContent: "center" }}>
+            <Link href="/privacy" style={{ color: "#555", fontSize: 13, textDecoration: "none" }}>
+              Privacy Policy
+            </Link>
+            <Link href="/terms" style={{ color: "#555", fontSize: 13, textDecoration: "none" }}>
+              Terms of Service
+            </Link>
+          </div>
+        </footer>
+
       </div>
     </>
   );
@@ -642,4 +658,3 @@ export default function AppPage() {
 export async function getServerSideProps() {
   return { props: {} };
 }
-```
