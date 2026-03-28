@@ -311,22 +311,32 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* FOOTER */}
-        <footer className={styles.footer}>
-          <div className={styles.footerInner}>
-            <div className={styles.logo}>
-              <span className={styles.logoIcon}>◈</span>
-              <span className={styles.logoText}>Compass</span>
-            </div>
-            <p className={styles.footerNote}>
-              Built to help people find their way.
-            </p>
-            <div style={{ marginTop: 12, display: "flex", gap: 24, justifyContent: "center" }}>
-              <Link href="/privacy" style={{ color: "#666", fontSize: 13 }}>Privacy Policy</Link>
-              <Link href="/terms" style={{ color: "#666", fontSize: 13 }}>Terms of Service</Link>
-            </div>
-          </div>
-        </footer>
+{/* FOOTER */}
+<footer className={styles.footer}>
+  <div className={styles.footerInner}>
+    <div className={styles.logo}>
+      <span className={styles.logoIcon}>◈</span>
+      <span className={styles.logoText}>Compass</span>
+    </div>
+    <p className={styles.footerNote}>
+      Built to help people find their way.
+    </p>
+  </div>
+  <div style={{
+    display: "flex",
+    gap: 24,
+    justifyContent: "center",
+    paddingBottom: 24,
+    marginTop: 8
+  }}>
+    <Link href="/privacy" style={{ color: "#555", fontSize: 13, textDecoration: "none" }}>
+      Privacy Policy
+    </Link>
+    <Link href="/terms" style={{ color: "#555", fontSize: 13, textDecoration: "none" }}>
+      Terms of Service
+    </Link>
+  </div>
+</footer>
 
       </div>
     </>
