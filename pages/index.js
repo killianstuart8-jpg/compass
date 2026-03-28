@@ -397,3 +397,7 @@ export default function Landing() {
     </>
   );
 }
+<div style={{ marginTop: 12, display: "flex", gap: 24, justifyContent: "center" }}>
+  <Link href="/privacy" style={{ color: "#666", fontSize: 13 }}>Privacy Policy</Link>
+  <Link href="/terms" style={{ color: "#666", fontSize: 13 }}>Terms of Service</Link>
+</div>
