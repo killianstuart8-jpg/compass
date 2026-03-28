@@ -8,7 +8,19 @@ const WELCOME_LINES = [
   "Compass asks the questions no one else thinks to ask.",
   "In about 10 minutes, you'll have more clarity than most people find in years.",
 ];
-
+function TypingIndicator() {
+  return (
+    <div className={styles.typingWrap}>
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          className={styles.typingDot}
+          style={{ animationDelay: `${i * 0.18}s` }}
+        />
+      ))}
+    </div>
+  );
+}
 function TypingIndicator() {
   return (
     <div className={styles.typingWrap}>
