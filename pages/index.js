@@ -148,75 +148,17 @@ export default function Landing() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <circle
-                cx="100"
-                cy="100"
-                r="90"
-                stroke="rgba(201,168,76,0.08)"
-                strokeWidth="1"
-              />
-              <circle
-                cx="100"
-                cy="100"
-                r="60"
-                stroke="rgba(201,168,76,0.06)"
-                strokeWidth="1"
-              />
-              <circle
-                cx="100"
-                cy="100"
-                r="30"
-                stroke="rgba(201,168,76,0.1)"
-                strokeWidth="1"
-              />
-              <line
-                x1="100"
-                y1="8"
-                x2="100"
-                y2="192"
-                stroke="rgba(201,168,76,0.08)"
-                strokeWidth="1"
-              />
-              <line
-                x1="8"
-                y1="100"
-                x2="192"
-                y2="100"
-                stroke="rgba(201,168,76,0.08)"
-                strokeWidth="1"
-              />
-              <line
-                x1="26"
-                y1="26"
-                x2="174"
-                y2="174"
-                stroke="rgba(201,168,76,0.05)"
-                strokeWidth="1"
-              />
-              <line
-                x1="174"
-                y1="26"
-                x2="26"
-                y2="174"
-                stroke="rgba(201,168,76,0.05)"
-                strokeWidth="1"
-              />
-              <polygon
-                points="100,10 107,90 100,100 93,90"
-                fill="rgba(201,168,76,0.5)"
-              />
-              <polygon
-                points="100,190 107,110 100,100 93,110"
-                fill="rgba(201,168,76,0.15)"
-              />
-              <polygon
-                points="190,100 110,107 100,100 110,93"
-                fill="rgba(201,168,76,0.15)"
-              />
-              <polygon
-                points="10,100 90,107 100,100 90,93"
-                fill="rgba(201,168,76,0.15)"
-              />
+              <circle cx="100" cy="100" r="90" stroke="rgba(201,168,76,0.08)" strokeWidth="1" />
+              <circle cx="100" cy="100" r="60" stroke="rgba(201,168,76,0.06)" strokeWidth="1" />
+              <circle cx="100" cy="100" r="30" stroke="rgba(201,168,76,0.1)" strokeWidth="1" />
+              <line x1="100" y1="8" x2="100" y2="192" stroke="rgba(201,168,76,0.08)" strokeWidth="1" />
+              <line x1="8" y1="100" x2="192" y2="100" stroke="rgba(201,168,76,0.08)" strokeWidth="1" />
+              <line x1="26" y1="26" x2="174" y2="174" stroke="rgba(201,168,76,0.05)" strokeWidth="1" />
+              <line x1="174" y1="26" x2="26" y2="174" stroke="rgba(201,168,76,0.05)" strokeWidth="1" />
+              <polygon points="100,10 107,90 100,100 93,90" fill="rgba(201,168,76,0.5)" />
+              <polygon points="100,190 107,110 100,100 93,110" fill="rgba(201,168,76,0.15)" />
+              <polygon points="190,100 110,107 100,100 110,93" fill="rgba(201,168,76,0.15)" />
+              <polygon points="10,100 90,107 100,100 90,93" fill="rgba(201,168,76,0.15)" />
               <circle cx="100" cy="100" r="5" fill="rgba(201,168,76,0.6)" />
             </svg>
           </div>
@@ -226,14 +168,11 @@ export default function Landing() {
         <section id="how-it-works" className={styles.section}>
           <div className={styles.sectionInner}>
             <div className={styles.sectionTag}>The Process</div>
-            <h2 className={styles.sectionTitle}>
-              Not a quiz. A conversation.
-            </h2>
+            <h2 className={styles.sectionTitle}>Not a quiz. A conversation.</h2>
             <p className={styles.sectionSub}>
               Compass doesn&apos;t assign you to a box. It listens, probes,
               and uncovers what you might not even know about yourself.
             </p>
-
             <div className={styles.stepsGrid}>
               {HOW_IT_WORKS.map((step, i) => (
                 <div
@@ -254,9 +193,7 @@ export default function Landing() {
         <section className={styles.previewSection}>
           <div className={styles.sectionInner}>
             <div className={styles.sectionTag}>Sample Questions</div>
-            <h2 className={styles.sectionTitle}>
-              Questions that actually matter
-            </h2>
+            <h2 className={styles.sectionTitle}>Questions that actually matter</h2>
             <div className={styles.questionsGrid}>
               {[
                 "Think back to a time when you were so absorbed in something that hours felt like minutes. What were you doing?",
@@ -324,7 +261,6 @@ export default function Landing() {
           <div className={styles.sectionInner}>
             <div className={styles.sectionTag}>Stories</div>
             <h2 className={styles.sectionTitle}>Lives redirected</h2>
-
             <div className={styles.testimonialStage}>
               {TESTIMONIALS.map((t, i) => (
                 <div
@@ -334,9 +270,7 @@ export default function Landing() {
                   <div className={styles.testimonialQuoteIcon}>&ldquo;</div>
                   <p className={styles.testimonialQuote}>{t.quote}</p>
                   <div className={styles.testimonialAuthor}>
-                    <div className={styles.testimonialAvatar}>
-                      {t.name[0]}
-                    </div>
+                    <div className={styles.testimonialAvatar}>{t.name[0]}</div>
                     <div>
                       <div className={styles.testimonialName}>{t.name}</div>
                       <div className={styles.testimonialRole}>{t.role}</div>
@@ -361,12 +295,8 @@ export default function Landing() {
         {/* CTA SECTION */}
         <section className={styles.ctaSection}>
           <div className={styles.ctaSectionInner}>
-            <div className={styles.ctaSectionCompass} aria-hidden="true">
-              ◈
-            </div>
-            <h2 className={styles.ctaSectionTitle}>
-              Your direction is waiting.
-            </h2>
+            <div className={styles.ctaSectionCompass} aria-hidden="true">◈</div>
+            <h2 className={styles.ctaSectionTitle}>Your direction is waiting.</h2>
             <p className={styles.ctaSectionSub}>
               Ten minutes. One honest conversation.
               <br />A lifetime of clarity.
@@ -380,20 +310,26 @@ export default function Landing() {
             </p>
           </div>
         </section>
-{/* FOOTER */}
-<footer className={styles.footer}>
-  <div className={styles.footerInner}>
-    <div className={styles.logo}>
-      <span className={styles.logoIcon}>◈</span>
-      <span className={styles.logoText}>Compass</span>
-    </div>
-    <p className={styles.footerNote}>
-      Built to help people find their way.
-    </p>
-    <div style={{ marginTop: 12, display: "flex", gap: 24, justifyContent: "center" }}>
-      <Link href="/privacy" style={{ color: "#666", fontSize: 13 }}>Privacy Policy</Link>
-      <Link href="/terms" style={{ color: "#666", fontSize: 13 }}>Terms of Service</Link>
-    </div>
-  </div>
-</footer>
 
+        {/* FOOTER */}
+        <footer className={styles.footer}>
+          <div className={styles.footerInner}>
+            <div className={styles.logo}>
+              <span className={styles.logoIcon}>◈</span>
+              <span className={styles.logoText}>Compass</span>
+            </div>
+            <p className={styles.footerNote}>
+              Built to help people find their way.
+            </p>
+            <div style={{ marginTop: 12, display: "flex", gap: 24, justifyContent: "center" }}>
+              <Link href="/privacy" style={{ color: "#666", fontSize: 13 }}>Privacy Policy</Link>
+              <Link href="/terms" style={{ color: "#666", fontSize: 13 }}>Terms of Service</Link>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+    </>
+  );
+}
+```
