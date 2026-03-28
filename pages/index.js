@@ -380,24 +380,20 @@ export default function Landing() {
             </p>
           </div>
         </section>
+{/* FOOTER */}
+<footer className={styles.footer}>
+  <div className={styles.footerInner}>
+    <div className={styles.logo}>
+      <span className={styles.logoIcon}>◈</span>
+      <span className={styles.logoText}>Compass</span>
+    </div>
+    <p className={styles.footerNote}>
+      Built to help people find their way.
+    </p>
+    <div style={{ marginTop: 12, display: "flex", gap: 24, justifyContent: "center" }}>
+      <Link href="/privacy" style={{ color: "#666", fontSize: 13 }}>Privacy Policy</Link>
+      <Link href="/terms" style={{ color: "#666", fontSize: 13 }}>Terms of Service</Link>
+    </div>
+  </div>
+</footer>
 
-        {/* FOOTER */}
-        <footer className={styles.footer}>
-          <div className={styles.footerInner}>
-            <div className={styles.logo}>
-              <span className={styles.logoIcon}>◈</span>
-              <span className={styles.logoText}>Compass</span>
-            </div>
-            <p className={styles.footerNote}>
-              Built to help people find their way.
-            </p>
-          </div>
-        </footer>
-      </div>
-    </>
-  );
-}
-<div style={{ marginTop: 12, display: "flex", gap: 24, justifyContent: "center" }}>
-  <https://compass-vert-two.vercel.app/privacy="/privacy" style={{ color: "#666", fontSize: 13 }}>Privacy Policy</Link>
-  <https://compass-vert-two.vercel.app/terms="/terms" style={{ color: "#666", fontSize: 13 }}>Terms of Service</Link>
-</div>
