@@ -312,23 +312,22 @@ export default function Landing() {
         </section>
 
 {/* FOOTER */}
-<footer className={styles.footer}>
-  <div className={styles.footerInner}>
-    <div className={styles.logo}>
-      <span className={styles.logoIcon}>◈</span>
-      <span className={styles.logoText}>Compass</span>
-    </div>
-    <p className={styles.footerNote}>
-      Built to help people find their way.
-    </p>
+<div style={{
+  borderTop: "1px solid rgba(255,255,255,0.06)",
+  padding: "32px 24px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: 16
+}}>
+  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+    <span style={{ color: "#c9a84c", fontSize: 18 }}>◈</span>
+    <span style={{ color: "#fff", fontWeight: 600 }}>Compass</span>
   </div>
-  <div style={{
-    display: "flex",
-    gap: 24,
-    justifyContent: "center",
-    paddingBottom: 24,
-    marginTop: 8
-  }}>
+  <p style={{ color: "#555", fontSize: 13, margin: 0 }}>
+    Built to help people find their way.
+  </p>
+  <div style={{ display: "flex", gap: 24 }}>
     <Link href="/privacy" style={{ color: "#555", fontSize: 13, textDecoration: "none" }}>
       Privacy Policy
     </Link>
@@ -336,10 +335,5 @@ export default function Landing() {
       Terms of Service
     </Link>
   </div>
-</footer>
-
-      </div>
-    </>
-  );
-}
+</div>
 ```
