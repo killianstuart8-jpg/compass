@@ -1,16 +1,23 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(20, "24 h"),
-  analytics: true,
-});
+// Only initialise Redis if env vars are present
+const getRedis = () => {
+  if (
+    process.env.UPSTASH_REDIS_REST_URL &&
+    process.env.UPSTASH_REDIS_REST_TOKEN
+  ) {
+    return new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    });
+  }
+  return null;
+};
 
 const SYSTEM_PROMPT = `You are "Compass" — a deeply insightful career and life direction counselor with the intuition of a seasoned therapist, the analytical precision of a career strategist, and the warmth of a trusted mentor.
 
@@ -25,16 +32,23 @@ CONVERSATION RULES:
 - Aim for 8-12 questions total before generating results.
 - Cover these areas naturally across the conversation: personality & energy, values & motivations, what they avoid/dislike, peak joy moments, work style preferences, impact they want to have on the world, financial vs. fulfillment balance, skills vs. passions.
 
+QUESTION EXAMPLES (adapt to the person, don't copy verbatim):
+- "Think back to a moment — maybe as a kid, maybe recently — when you were so absorbed in something that time just vanished. What were you doing?"
+- "If money weren't a factor at all, how would you spend your Tuesday afternoons?"
+- "What kind of impact do you most want to leave? On individuals, communities, or the world at large?"
+- "Describe your ideal working environment — not the job itself, but the physical and social setting."
+- "What's something you do naturally that others seem to find difficult or impressive?"
+
 RESULT GENERATION:
 When you have gathered enough (after ~8-12 exchanges), output ONLY a JSON block in this exact format wrapped in <CAREER_RESULTS> tags, followed by a short warm closing message:
 
 <CAREER_RESULTS>
 {
-  "summary": "2-3 sentence deeply personal summary of who this person is",
+  "summary": "2-3 sentence deeply personal summary of who this person is, referencing specific things they shared",
   "primaryCareer": {
     "title": "Career Title",
     "fit": 97,
-    "description": "Why this is a perfect fit for them specifically",
+    "description": "Why this is a perfect fit for them specifically — reference actual things they said in the conversation",
     "path": [
       "Concrete first step to get started this week",
       "Second milestone (weeks to months)",
@@ -43,32 +57,43 @@ When you have gathered enough (after ~8-12 exchanges), output ONLY a JSON block 
     ]
   },
   "alternativeCareers": [
-    { "title": "Career Title", "fit": 89, "description": "Brief explanation" },
-    { "title": "Career Title", "fit": 84, "description": "Brief explanation" },
-    { "title": "Career Title", "fit": 79, "description": "Brief explanation" }
+    {
+      "title": "Career Title",
+      "fit": 89,
+      "description": "Brief but personal explanation of why this fits them"
+    },
+    {
+      "title": "Career Title",
+      "fit": 84,
+      "description": "Brief but personal explanation of why this fits them"
+    },
+    {
+      "title": "Career Title",
+      "fit": 79,
+      "description": "Brief but personal explanation of why this fits them"
+    }
   ],
   "coreStrengths": ["Strength 1", "Strength 2", "Strength 3", "Strength 4"],
-  "watchOut": "One honest, compassionate caution about a pattern or blind spot"
+  "watchOut": "One honest, compassionate caution about a pattern or blind spot they should be aware of"
 }
-</CAREER_RESULTS>`;
+</CAREER_RESULTS>
+
+After the JSON block, write 2-3 sentences of warm, personal closing — acknowledge what they've shared and express genuine excitement for their path ahead.
+
+DEEP DIVE MODE:
+If the user asks to learn more about a specific career after receiving results, provide rich, actionable guidance:
+- A vivid day-in-the-life description
+- Required skills and education (with honest timelines)
+- Realistic income ranges (entry, mid, senior level)
+- The 3 best resources to start TODAY (books, courses, communities)
+- What makes someone exceptional vs. just good in this field
+- How their specific traits (from the conversation) will serve them
+
+Always be warm, specific, and genuinely encouraging without being sycophantic.`;
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
-  }
-
-  // Rate limiting
-  const ip =
-    req.headers["x-real-ip"] ||
-    req.headers["x-forwarded-for"]?.split(",")[0] ||
-    "anonymous";
-
-  const { success } = await ratelimit.limit(ip);
-
-  if (!success) {
-    return res.status(429).json({
-      error: "You've reached the daily limit for Compass sessions. Please come back tomorrow to continue your journey.",
-    });
   }
 
   const { messages } = req.body;
@@ -94,6 +119,42 @@ export default async function handler(req, res) {
       .map((block) => block.text)
       .join("");
 
+    // ── Log conversation to Redis (non-blocking) ──
+    try {
+      const redis = getRedis();
+      if (redis) {
+        const timestamp = Date.now();
+        const sessionId = req.headers["x-session-id"] || "unknown";
+        const ip =
+          (req.headers["x-forwarded-for"] || "").split(",")[0].trim() ||
+          "unknown";
+
+        const logEntry = {
+          timestamp,
+          sessionId,
+          ip,
+          // Last user message
+          userMessage: messages[messages.length - 1]?.content || "",
+          // AI response (trim to 3000 chars to save space)
+          aiResponse: text.slice(0, 3000),
+          // Total messages in this conversation
+          messageCount: messages.length,
+          // Flag if this response contains final results
+          hasResults: text.includes("<CAREER_RESULTS>"),
+        };
+
+        // Store with a unique key: log:<timestamp>:<random>
+        const key = `log:${timestamp}:${Math.random().toString(36).slice(2, 7)}`;
+        // Keep logs for 90 days
+        await redis.set(key, JSON.stringify(logEntry), { ex: 60 * 60 * 24 * 90 });
+        // Add key to a sorted set for easy time-ordered retrieval
+        await redis.zadd("logs:index", { score: timestamp, member: key });
+      }
+    } catch (logError) {
+      // Never let logging break the actual response
+      console.error("Logging error:", logError);
+    }
+
     return res.status(200).json({ text });
   } catch (error) {
     console.error("Anthropic API error:", error);
@@ -104,12 +165,3 @@ export default async function handler(req, res) {
     });
   }
 }
-```
-
----
-
-Once you've replaced it, save the file and then run in your terminal:
-```
-git add .
-git commit -m "Add rate limiting"
-git push
