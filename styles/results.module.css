@@ -1,0 +1,583 @@
+/* ── LAYOUT ── */
+.root {
+  min-height: 100vh;
+  background: #0a0a0f;
+  color: #e8e4d9;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.orbTopRight {
+  position: fixed;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orbBottomLeft {
+  position: fixed;
+  bottom: -200px;
+  left: -200px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(100,130,200,0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 18px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(12px);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+}
+
+.logoIcon {
+  font-size: 20px;
+  color: #c9a84c;
+}
+
+.logoText {
+  font-size: 17px;
+  font-weight: 600;
+  color: #e8e4d9;
+  letter-spacing: 0.01em;
+}
+
+.headerActions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btnPrimary {
+  padding: 9px 20px;
+  background: #c9a84c;
+  color: #0a0a0f;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.btnPrimary:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.btnGhost {
+  padding: 9px 18px;
+  background: transparent;
+  color: #9a9585;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btnGhost:hover {
+  color: #e8e4d9;
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* ── MAIN ── */
+.main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── HERO ── */
+.heroSection {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.heroTag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 16px;
+}
+
+.heroTitle {
+  font-size: clamp(28px, 5vw, 38px);
+  font-weight: 700;
+  color: #f0ece0;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.heroSub {
+  font-size: 15px;
+  color: #6b6559;
+  margin: 0 0 24px;
+}
+
+.shareLine {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 10px 14px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.shareUrl {
+  flex: 1;
+  font-size: 12px;
+  color: #7a7060;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: monospace;
+}
+
+.copyBtn {
+  padding: 6px 14px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 6px;
+  color: #c9a84c;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.copyBtn:hover {
+  background: rgba(201,168,76,0.2);
+}
+
+/* ── RESULTS CARDS (same as app.js) ── */
+.resultsWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.summaryCard {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.cardTag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 12px;
+}
+
+.summaryText {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #c5bfb0;
+  margin: 0;
+}
+
+.primaryCard {
+  background: rgba(201,168,76,0.04);
+  border: 1px solid rgba(201,168,76,0.18);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.primaryHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 16px;
+}
+
+.primaryTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #f0ece0;
+  margin: 4px 0 0;
+  letter-spacing: -0.02em;
+}
+
+.fitBadge {
+  font-size: 13px;
+  font-weight: 700;
+  color: #c9a84c;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 20px;
+  padding: 5px 13px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.fitBarTrack {
+  height: 4px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 2px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.fitBarFill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1s ease;
+}
+
+.fitBarFill_gold {
+  background: linear-gradient(90deg, #c9a84c, #e8c870);
+}
+
+.fitBarFill_blue {
+  background: linear-gradient(90deg, #4a7cc7, #6b9de8);
+}
+
+.primaryDesc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #b8b0a0;
+  margin: 0 0 24px;
+}
+
+.pathWrap {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 20px;
+}
+
+.cardTagAlt {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a7fa0;
+  margin-bottom: 14px;
+}
+
+.pathStep {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 12px;
+  align-items: flex-start;
+}
+
+.pathNum {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.3);
+  color: #c9a84c;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pathText {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #a09888;
+  margin: 3px 0 0;
+}
+
+.altSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.altCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.altCard:hover {
+  border-color: rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+}
+
+.altHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.altTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #d8d0c0;
+}
+
+.altFit {
+  font-size: 13px;
+  font-weight: 700;
+  color: #4a7cc7;
+}
+
+.altDesc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #8a8070;
+  margin: 10px 0 0;
+}
+
+.bottomGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 580px) {
+  .bottomGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.strengthsCard {
+  background: rgba(60,160,100,0.05);
+  border: 1px solid rgba(60,160,100,0.15);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.cardTagGreen {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5cb87a;
+  margin-bottom: 14px;
+}
+
+.strengthItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.strengthDot {
+  width: 6px;
+  height: 6px;
+  background: #5cb87a;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.strengthText {
+  font-size: 13px;
+  color: #a8c0b0;
+}
+
+.watchCard {
+  background: rgba(200,120,50,0.05);
+  border: 1px solid rgba(200,120,50,0.15);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.cardTagOrange {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #d08040;
+  margin-bottom: 12px;
+}
+
+.watchText {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #a09070;
+  margin: 0;
+}
+
+/* ── STATES ── */
+.loadingWrap {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.loadingIcon {
+  font-size: 32px;
+  color: #c9a84c;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loadingText {
+  font-size: 15px;
+  color: #6b6559;
+}
+
+.errorWrap {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.errorTitle {
+  font-size: 22px;
+  color: #e8e4d9;
+  margin: 0;
+}
+
+.errorSub {
+  font-size: 14px;
+  color: #6b6559;
+  margin: 0;
+}
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 32px 24px 48px;
+  color: #3a3530;
+  font-size: 13px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  .header,
+  .orbTopRight,
+  .orbBottomLeft,
+  .footer,
+  .shareLine,
+  .heroSub,
+  .noPrint {
+    display: none !important;
+  }
+
+  .root {
+    background: #fff;
+    color: #111;
+  }
+
+  .main {
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  .heroTitle {
+    color: #111;
+    font-size: 26px;
+    margin-bottom: 24px;
+  }
+
+  .heroTag {
+    color: #8a6a20;
+  }
+
+  .summaryCard,
+  .primaryCard,
+  .altCard,
+  .strengthsCard,
+  .watchCard {
+    background: #fafafa !important;
+    border: 1px solid #ddd !important;
+    break-inside: avoid;
+  }
+
+  .summaryText,
+  .primaryDesc,
+  .altDesc,
+  .pathText,
+  .watchText,
+  .strengthText {
+    color: #333 !important;
+  }
+
+  .primaryTitle,
+  .altTitle,
+  .heroTitle {
+    color: #111 !important;
+  }
+
+  .cardTag,
+  .fitBadge {
+    color: #8a6a20 !important;
+  }
+
+  .fitBarFill_gold {
+    background: #c9a84c !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .fitBarFill_blue {
+    background: #4a7cc7 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cardTagGreen { color: #2a8a4a !important; }
+  .cardTagOrange { color: #c06820 !important; }
+  .strengthDot { background: #2a8a4a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .altFit { color: #2a5aa7 !important; }
+  .pathNum { border-color: #c9a84c !important; color: #8a6a20 !important; }
+  .cardTagAlt { color: #666 !important; }
+
+  .bottomGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
